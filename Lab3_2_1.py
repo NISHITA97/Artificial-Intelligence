@@ -64,7 +64,24 @@ class Graph:
                 if(self.data[cs][vers]==1 ):
                     q.put((self.hu[vers],vers));
 
-            
+    def HillClimbing(self,src,dest,dict):
+        self.djks(dest);
+        q = Q.PriorityQueue()
+        print "HillClimbing";
+        q.put((self.hu[src],src));
+        while not q.empty():
+            ele1=q.get();
+            cs=ele1[1];
+            print ele1 , dict[cs];
+            if(self.hu[cs]==0):
+                break;
+            q2 = Q.PriorityQueue()
+            for vers in range(0,self.V):
+                if(self.data[cs][vers]==1 ):
+                    q2.put((self.hu[vers],vers));
+            minele=q2.get();
+            q.put(minele);
+
         
         
 ifile = open(sys.argv[1],'r');
@@ -98,4 +115,4 @@ for i in range(2,rows-2):
     des=read[i][2];
     g.adding(dict[src],dict[des]);
 
-g.bfs(dict[source],dict[dest],dict2);
+g.HillClimbing(dict[source],dict[dest],dict2);

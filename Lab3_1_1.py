@@ -187,8 +187,36 @@ class Graph:
                 up=self.config[up];
                 q.put((up.hu,up,'L'));
 
-   
+    def HillClimbing(self):
+        q = Q.PriorityQueue()
+        print "HillClimbing";
+        q.put((self.src.hu,self.src,'N'));
+        while not q.empty():
+            ele1=q.get();
+            #print ele1;
+            state=ele1[1];
+            q2=Q.PriorityQueue();
+            print state.printstate(), ele1[2];
+            if(state.hu==0):
+                break;
+            suck=self.suck(state);
+            if(suck!=-1):
+                suck=self.config[suck];
+                q2.put((suck.hu,suck,'S'));
 
+            up=self.upper(state);
+            if(up!=-1):
+                up=self.config[up];
+                q2.put((up.hu,up,'U'));
+            suck=self.down(state);
+            if(suck!=-1):
+                suck=self.config[suck];
+                q2.put((suck.hu,suck,'D'));
+
+            up=self.rt(state);
+            if(up!=-1):
+                up=self.config[up];
+                q2.put((up.hu,up,'R'));
 
 
 lines=filein.readlines();
